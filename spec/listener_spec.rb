@@ -1,15 +1,11 @@
+require_relative "spec_helper"
 require_relative "../lib/rami/listener"
 include RAMI
 
-@ip   = "127.0.0.1"
-@port = 5038
+config = YAML::load_file("config.yml")["rami"]
 
 describe Listener do
   it "should open socket" do
-    Listener.new(@ip, @port).sock.should_not == nil
-  end
-
-  it "should login" do
-    Listener.new(@ip, @port).login
+    Listener.new(config["host"], config["port"]).sock.should_not == nil
   end
 end
