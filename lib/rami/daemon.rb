@@ -1,11 +1,11 @@
 module RAMI
   class Daemon
     def self.start(pid, pidfile, outfile, errfile)
-      unless pid.nil?
-        write pid, pidfile
-        exit
+      if pid.nil?
+        redirect(outfile, errfile)
       else
-        redirect outfile, errfile
+        write(pid, pidfile)
+        exit
       end
     end
 

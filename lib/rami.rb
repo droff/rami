@@ -1,6 +1,7 @@
-require_relative "rami/daemon"
-require_relative "rami/listener"
-require "time"
+require 'time'
+
+require_relative 'rami/daemon'
+require_relative 'rami/listener'
 
 module RAMI
 
@@ -21,9 +22,9 @@ module RAMI
 
   def self.parse_values(h)
     h[:created_at] = Time.now
-    h[:starttime] = Time.parse(h[:starttime]) if h[:starttime]
-    h[:answertime] = Time.parse(h[:answertime]) if h[:answertime]
-    h[:endtime] = Time.parse(h[:endtime]) if h[:endtime]
+    h[:starttime] &&= Time.parse(h[:starttime])
+    h[:answertime] &&= Time.parse(h[:answertime])
+    h[:endtime] &&= Time.parse(h[:endtime])
     h[:destinationchannel] = h[:destinationchannel].match(/(\d{1,})/)[0] if h[:destinationchannel] && h[:destinationchannel] =~ /SIP\/\d/
     h
   end
