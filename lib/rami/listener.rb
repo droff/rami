@@ -1,10 +1,10 @@
-require "socket"
-
 module RAMI
   class Listener
-    attr_reader :sock, :data
+    class << self
+      attr_reader :sock, :data
+    end
 
-    def initialize(host, port)
+    def self.init(host, port)
       begin
         @sock = TCPSocket.open(host, port)
       rescue
@@ -12,12 +12,14 @@ module RAMI
       end
     end
 
-    def login(login)
-      @sock.puts(login)
+    def self.auth(username, secret)
+      auth = "Action: login\nUsername: #{username}\nSecret: #{secret}\nEvent: on\n\n"
+
+      @sock.puts(auth)
       @sock.recv(1000)
     end
 
-    def run
+    def self.run
       @data = @sock.recv(5000)
       unless @data.empty?
         yield if block_given?

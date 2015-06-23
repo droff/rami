@@ -1,0 +1,14 @@
+name: 'RAMI'
+host: '127.0.0.1'
+port: 5038
+username: 'username'
+secret: 'password'
+pidfile: '/tmp/rami.pid'
+log_file: 'logs/rami.log'
+mongo_host: '127.0.0.1:27017'
+mongo_db: 'ami'
+mongo_collection: 'events'
+sourcemask: '5553226'
+passed_calls_mask:
+- 44
+- 43

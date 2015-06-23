@@ -1,3 +1,3 @@
-source "https://rubygems.org"
+source 'https://rubygems.org'
 
-require "mongo"
+gem 'mongo', '2.0.5'
