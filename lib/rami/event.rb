@@ -95,7 +95,7 @@ module RAMI
     end
 
     def set_time(str)
-      str.empty? ? nil : Time.parse(str)
+      (str.empty? || str.nil?) ? nil : Time.parse(str)
     end
 
     def phone(str)
