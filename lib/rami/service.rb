@@ -32,11 +32,13 @@ module RAMI
               data = Listener.data
               event = Event.new(data)
 
-              if event.cdr?
-                if event.passed?(event.source) || event.passed?(event.destination)
-                  @db[@cfg['mongo_collection']].insert_one(event.fields)
+              unless event.nil?
+                if event.cdr?
+                  if event.passed?(event.source) || event.passed?(event.destination)
+                    @db[@cfg['mongo_collection']].insert_one(event.fields)
+                  end
+                  $stdout.puts(data) if event.source == '0000'
                 end
-                $stdout.puts(data) if event.source == '0000'
               end
             end
           end

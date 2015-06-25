@@ -8,4 +8,5 @@ require_relative 'rami/event'
 require_relative 'rami/service'
 
 module RAMI
+  VERSION = '0.1'
 end
