@@ -1,10 +1,16 @@
 module RAMI
   class Event
+    attr_reader :data
+
     SEPARATOR_EVENTS = "\r\n\r\n"
     SEPARATOR_FIELDS = "\r\n"
 
-    def initialize(raw_data)
-      @data = to_hash(raw_data.split(SEPARATOR_EVENTS))
+    def initialize(raw_data=nil)
+      if raw_data =~ /#{SEPARATOR_EVENTS}$/
+        @data = to_hash(raw_data.split(SEPARATOR_EVENTS))
+      else
+        nil
+      end
     end
 
     def cdr?
@@ -95,10 +101,12 @@ module RAMI
     end
 
     def set_time(str)
-      (str.empty? || str.nil?) ? nil : Time.parse(str)
+      (str.nil? || str.empty?) ? nil : Time.parse(str)
     end
 
     def phone(str)
+      return nil if str.nil? || str.empty?
+
       str[0] = ''   if str[0] == '9'
       str[0] = '+7' if str[0] == '8'
       str[0] = '+7' if str[0] == '7'
