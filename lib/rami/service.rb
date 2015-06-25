@@ -32,7 +32,7 @@ module RAMI
               data = Listener.data
               event = Event.new(data)
 
-              unless event.nil?
+              unless event.data.nil?
                 if event.cdr?
                   if event.passed?(event.source) || event.passed?(event.destination)
                     @db[@cfg['mongo_collection']].insert_one(event.fields)

@@ -6,11 +6,12 @@ module RAMI
     SEPARATOR_FIELDS = "\r\n"
 
     def initialize(raw_data=nil)
-      if raw_data =~ /#{SEPARATOR_EVENTS}$/
-        @data = to_hash(raw_data.split(SEPARATOR_EVENTS))
-      else
-        nil
-      end
+      @data = 
+        if raw_data =~ /#{SEPARATOR_EVENTS}$/
+          to_hash(raw_data.split(SEPARATOR_EVENTS))
+        else
+          nil
+        end
     end
 
     def cdr?
