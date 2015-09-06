@@ -28,16 +28,14 @@ module RAMI
         Thread.new do
           loop do
             break if Listener.sock.closed?
+
             Listener.run do
               data = Listener.data
               event = Event.new(data)
 
-              unless event.data.nil?
-                if event.cdr?
-                  if event.passed?(event.source) || event.passed?(event.destination)
-                    @db[@cfg['mongo_collection']].insert_one(event.fields)
-                  end
-                  $stdout.puts(data) if event.source == '0000'
+              if event.data && event.cdr?
+                event.insert_data do
+                  @db[@cfg['mongo_collection']].insert_one(event.fields)
                 end
               end
             end

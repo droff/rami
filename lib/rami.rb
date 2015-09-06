@@ -1,12 +1,12 @@
 require 'yaml'
 require 'mongo'
 require 'socket'
-require_relative 'rami/daemon'
-require_relative 'rami/listener'
-require_relative 'rami/config'
-require_relative 'rami/event'
-require_relative 'rami/service'
+require './lib/rami/daemon'
+require './lib/rami/listener'
+require './lib/rami/config'
+require './lib/rami/event'
+require './lib/rami/service'
 
 module RAMI
-  VERSION = '0.1'
+  VERSION = '0.2'
 end

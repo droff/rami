@@ -18,7 +18,7 @@ module RAMI
         @sock.recv(1000)
       end
 
-      def run
+      def run(&block)
         @data = @sock.recv(5000)
         unless @data.empty?
           yield if block_given?

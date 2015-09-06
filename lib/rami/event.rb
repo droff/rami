@@ -6,7 +6,7 @@ module RAMI
     SEPARATOR_FIELDS = "\r\n"
 
     def initialize(raw_data=nil)
-      @data = 
+      @data =
         if raw_data =~ /#{SEPARATOR_EVENTS}$/
           to_hash(raw_data.split(SEPARATOR_EVENTS))
         else
@@ -62,11 +62,6 @@ module RAMI
       @data['Disposition']
     end
 
-    def passed?(phone)
-      m = /^(#{Service.cfg['passed_calls_mask'].join('|')})\d{2}$/
-      phone =~ m ? true : false
-    end
-
     def to_s
       fields.map { |field, value| "#{field}: #{value}" }.join("\n")
     end
@@ -81,6 +76,17 @@ module RAMI
         billableseconds: billableseconds,
         disposition: disposition
       }
+    end
+
+    def passed?(phone)
+      m = /^(#{Service.cfg['passed_calls_mask'].join('|')})\d{2}$/
+      phone =~ m ? true : false
+    end
+
+    def insert_data(&block)
+      if block_given?
+        yield if passed?(source) || passed?(destination)
+      end
     end
 
     private
