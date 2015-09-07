@@ -20,10 +20,10 @@ module RAMI
 
       def run(&block)
         @data = @sock.recv(5000)
-        unless @data.empty?
-          yield if block_given?
-        else
+        if @data.empty?
           @sock.close
+        else
+          yield if block_given?
         end
       end
     end

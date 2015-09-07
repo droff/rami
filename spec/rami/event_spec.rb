@@ -78,7 +78,7 @@ describe Event do
   context 'check fields' do
     before do
       service = class_double('RAMI::Service').as_stubbed_const
-      allow(service).to receive(:cfg).and_return({'sourcemask' => '555', 
+      allow(service).to receive(:cfg).and_return({'sourcemask' => '555',
         'passed_calls_mask' => %w(43 44)})
     end
 
@@ -100,10 +100,6 @@ describe Event do
 
     it '#destination received at queue' do
       expect(Event.new(raw_data2).destination).to eq '4302'
-    end
-
-    it '#passed?' do
-      expect(@event.passed?(@event.source)).to be_truthy
     end
 
     it '#fields' do

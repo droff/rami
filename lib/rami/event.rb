@@ -78,18 +78,22 @@ module RAMI
       }
     end
 
-    def passed?(phone)
-      m = /^(#{Service.cfg['passed_calls_mask'].join('|')})\d{2}$/
-      phone =~ m ? true : false
-    end
-
     def insert_data(&block)
       if block_given?
-        yield if passed?(source) || passed?(destination)
+        yield if passed_data?
       end
     end
 
     private
+
+    def passed_data?
+      data && cdr? && (passed_phone?(source) || passed_phone?(destination))
+    end
+
+    def passed_phone?(phone)
+      m = /^(#{Service.cfg['passed_calls_mask'].join('|')})\d{2}$/
+      phone =~ m ? true : false
+    end
 
     def to_hash(arr)
       raw_fields = arr.map { |str| str.split(SEPARATOR_FIELDS) }.flatten

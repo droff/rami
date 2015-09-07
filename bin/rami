@@ -3,7 +3,7 @@
 ENV['BUNDLE_GEMFILE'] ||= File.expand_path('../../Gemfile', __FILE__)
 require 'bundler/setup'
 
-require_relative '../lib/rami'
+require './lib/rami'
 
 RAMI::Service.init(ARGV[0])
 RAMI::Service.start
